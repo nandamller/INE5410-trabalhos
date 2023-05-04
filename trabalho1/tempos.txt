@@ -1,0 +1,6 @@
+input-big.in (sem paralelismo)
+
+real    20m50,328s
+user    20m48,286s
+sys     0m0,730s
+
