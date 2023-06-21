@@ -39,21 +39,15 @@ def work_thread(job: tuple, list_errors: list, puzzle: list):
             if puzzle[i][j] in lista:
                 if (job[0][0] - job[1][0]) == 0:
                     list_errors.append(f'C{job[0][0]+1}')
-                    print(f'C{job[0][0]+1}')
                 elif (job[0][1] - job[1][1]) == 0:
                     list_errors.append(f'L{job[0][1]+1}')
-                    print(f'L{job[0][1]+1}')
                 else:
-                    list_errors.append(f'R')
-                    print('R')
-
+                    r = job[0][0] + job[0][1]//3 + 1
+                    list_errors.append(f'R{r}')
             else:
                 lista.append(puzzle[i][j])
-    
-    
 
-    print(lista)
-
+    print(list_errors)
 
 
 def validate_sudoku(puzzle) -> bool: 
