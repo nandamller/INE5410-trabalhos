@@ -67,7 +67,7 @@ void * thread_play(void *arg) {
             }
         }
     }
-    pthread_exit((void *)args);
+    pthread_exit(NULL);
 }
 
 /* Statistics */
@@ -129,10 +129,9 @@ stats_t play(cell_t **board, cell_t **newboard, thread_args *args, pthread_t *th
         pthread_create(&threads[i], NULL, thread_play, (void *)&args[i]);
     }
 
-
-    //void *ret;
     for (i = 0; i < n_threads; i++) {
-        pthread_join(threads[i], (void *)&args[i]);
+        pthread_join(threads[i], NULL);
+
         stats.borns += args[i].stats.borns;
         stats.overcrowding += args[i].stats.overcrowding;
         stats.loneliness += args[i].stats.loneliness;

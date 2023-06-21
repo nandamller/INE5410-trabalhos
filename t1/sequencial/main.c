@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "gol.h"
 
 int main(int argc, char **argv)
@@ -9,7 +10,7 @@ int main(int argc, char **argv)
     stats_t stats_step = {0, 0, 0, 0};
     stats_t stats_total = {0, 0, 0, 0};
 
-    if (argc != 2)
+    if (argc != 3)
     {
         printf("ERRO! Você deve digitar %s <nome do arquivo do tabuleiro>!\n\n", argv[0]);
         return 0;
@@ -20,6 +21,8 @@ int main(int argc, char **argv)
         printf("ERRO! O arquivo de tabuleiro '%s' não existe!\n\n", argv[1]);
         return 0;
     }
+
+    int n_threads = atoi(argv[2]);
 
     fscanf(f, "%d %d", &size, &steps);
 
@@ -38,7 +41,7 @@ int main(int argc, char **argv)
 
     for (int i = 0; i < steps; i++)
     {
-        stats_step = play(prev, next, size);
+        stats_step = play(prev, next, size, n_threads);
         
         stats_total.borns += stats_step.borns;
         stats_total.survivals += stats_step.survivals;

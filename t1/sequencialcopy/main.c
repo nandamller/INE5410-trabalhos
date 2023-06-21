@@ -12,8 +12,6 @@ int main(int argc, char **argv)
     stats_t stats_step = {0, 0, 0, 0};
     stats_t stats_total = {0, 0, 0, 0};
 
-    int n_threads = atoi(argv[2]);
-
     if (argc != 3)
     {
         printf("ERRO! Você deve digitar %s <nome do arquivo do tabuleiro> <número de threads>!\n\n", argv[0]);
@@ -26,7 +24,12 @@ int main(int argc, char **argv)
         return 0;
     }
 
+    int n_threads = atoi(argv[2]);
+
     fscanf(f, "%d %d", &size, &steps);
+
+    if (n_threads > size)
+        n_threads = size;
 
     prev = allocate_board(size);
     next = allocate_board(size);
@@ -43,6 +46,9 @@ int main(int argc, char **argv)
 
     pthread_t threads[n_threads];
     thread_args args[n_threads];
+
+    // int op_thread = a_size/n_threads;
+    // int resto = a_size%n_threads;
 
     for (int i = 0; i < n_threads; i++)
     {

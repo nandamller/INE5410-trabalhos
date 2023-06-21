@@ -124,12 +124,11 @@ int adjacent_to(cell_t **board, int size, int i, int j)
     return count;
 }
 
-stats_t play(cell_t **board, cell_t **newboard, int size)
+stats_t play(cell_t **board, cell_t **newboard, int size, int n_threads)
 {
     int i;
 
     stats_t stats = {0, 0, 0, 0};
-    pthread_t n_threads = 10;
     pthread_t threads[n_threads];
 
     /* for each cell, apply the rules of Life */
