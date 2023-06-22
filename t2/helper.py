@@ -18,6 +18,6 @@ def create_job_queue():
         for j in range(0, 9, 3):
             # adicioando as regiões na fila
             queue.append(((i, j), ((i + 2, j + 2))))
-    
+
     return queue
 
