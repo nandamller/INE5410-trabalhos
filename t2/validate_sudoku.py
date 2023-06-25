@@ -9,16 +9,16 @@ def validate_sudoku_puzzles(file_name: str, num_processes: int, num_threads_per_
     '''
     TODO: explicar o método aqui
     '''
-    # puzzle_sem = multiprocessing.Semaphore(0) # Semaforo desativado. multiprocessing.Queue ja implementa um semaforo
+    if num_threads_per_process > 27:
+        num_threads_per_process = 27
     puzzles_queue = multiprocessing.Queue()
     lock = multiprocessing.Lock()
     cond = multiprocessing.Condition(lock)
-    job_queue = create_job_queue()
     # print(job_queue)
     process_pool = []
     for i in range(num_processes):
         process_pool.append(multiprocessing.Process(target=worker_process, args=(i, num_threads_per_process, 
-                                                    job_queue, puzzles_queue)))
+                                                    puzzles_queue)))
         process_pool[i].start()
 
     with open(file_name, 'r') as file:

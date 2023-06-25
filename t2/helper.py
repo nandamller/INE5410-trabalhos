@@ -1,11 +1,11 @@
-from collections import deque
+from queue import Queue
 
 def create_job_queue():
     '''
     TODO: explicar a função aqui
     '''
 
-    queue = deque()
+    queue = []
     for i in range(9):
         # adicionando as linhas na fila
         queue.append(((i,0), (i,8)))
