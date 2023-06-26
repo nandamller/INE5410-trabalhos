@@ -1,4 +1,4 @@
-from queue import Queue
+
 
 def create_job_queue():
     '''
@@ -20,4 +20,3 @@ def create_job_queue():
             queue.append(((i, j), ((i + 2, j + 2))))
 
     return queue
-

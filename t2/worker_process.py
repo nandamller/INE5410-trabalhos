@@ -1,9 +1,7 @@
 
-import multiprocessing
-import threading
+
 import concurrent.futures as ft
 from helper import create_job_queue
-from collections import deque
 
 
 def worker_process(process_id: int, num_threads: int, puzzle_queue):
@@ -37,7 +35,6 @@ def worker_process(process_id: int, num_threads: int, puzzle_queue):
 
 
 def worker_thread(id: int, job_queue: list, puzzle: list[list]):
-    # print(f"Thread {id} inicializada")
     list_errors = []
     for job in job_queue:
         lista = []
@@ -51,15 +48,7 @@ def worker_thread(id: int, job_queue: list, puzzle: list[list]):
                     else:
                         r = job[0][0] + job[0][1]//3 + 1
                         list_errors.append(f'R{r}')
-                    # print(f"Thread {id} contou erro")
                 else:
                     lista.append(puzzle[i][j])
 
-    # print(list_errors)
     return(list_errors)
-
-
-def validate_sudoku(puzzle) -> bool: 
-    # TODO: Implementar aqui a validação do quebra-cabeças Sudoku
-    # Retorna True se a solução é válida e False caso contrário
-    pass
