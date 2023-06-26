@@ -8,12 +8,11 @@ from collections import deque
 
 def worker_process(process_id: int, num_threads: int, puzzle_queue):
     # TODO: Implementar aqui o trabalho de cada processo (criando as Threads)
+    job_queue = create_job_queue()
     while True:
         index, puzzle = puzzle_queue.get()
         if index == -1:
             break
-        job_queue = create_job_queue()
-        job_lock = threading.Lock()
         print(f"Processo {process_id+1}: resolvendo quebra-cabeças {index+1}")
         # lista de erros única p cada thread
         list_errors = [[] for _ in range(num_threads)]
@@ -21,7 +20,7 @@ def worker_process(process_id: int, num_threads: int, puzzle_queue):
         with ft.ThreadPoolExecutor(num_threads) as thread_pool:
             results = [thread_pool.submit(worker_thread, i, 
                                           job_queue[i*len(job_queue)//num_threads:(i+1)*len(job_queue)//num_threads], 
-                                          job_lock, puzzle) for i in range(num_threads)]
+                                          puzzle) for i in range(num_threads)]
         s = ['' for _ in range(num_threads)]
         for i, result in enumerate(results):
             errors = result.result()
@@ -37,7 +36,7 @@ def worker_process(process_id: int, num_threads: int, puzzle_queue):
         else: print()
 
 
-def worker_thread(id: int, job_queue: list, job_lock:threading.Lock, puzzle: list[list]):
+def worker_thread(id: int, job_queue: list, puzzle: list[list]):
     # print(f"Thread {id} inicializada")
     list_errors = []
     for job in job_queue:
