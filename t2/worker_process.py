@@ -27,7 +27,7 @@ def worker_process(process_id: int, num_threads: int, puzzle_queue):
             for x in errors: 
                 if x not in temp: 
                     temp.append(x)
-            s[i] = f"T{i}: " + ', '.join(temp)
+            s[i] = f"T{i+1}: " + ', '.join(temp)
         ne = sum(len([*set(error)]) for error in list_errors)
         print(f"Processo {process_id+1}: {ne} erros encontrados", end='')
         if ne: print(f" ({'; '.join(s)})")
